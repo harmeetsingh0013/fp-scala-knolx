@@ -3,7 +3,7 @@ package march2018.backup
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-object Example8 extends App {
+object Refactor extends App {
 
 
   // side effects operations
