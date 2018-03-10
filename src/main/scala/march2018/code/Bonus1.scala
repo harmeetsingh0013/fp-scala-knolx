@@ -12,5 +12,23 @@ object Bonus1 extends App {
   def checkCanBeUpdated(u: User): Future[Boolean] =
     Future.successful(true)
 
+  def updateUser(id:Int): Future[Option[User]]={
+    getUserOption(id).flatMap{ userOpt =>
+      userOpt match{
+        case Some(user) => checkCanBeUpdated(user).flatMap{ canBeUpdated =>
+
+          if(canBeUpdated)
+            Future.successful(Some(user))
+          else Future.successful(None)
+        }
+
+        case None => Future.successful(None)
+      }
+    }
+  }
+
+  val updatedUser = updateUser(1)
+  Thread.sleep(1000)
+  println(s" user is ${updatedUser}")
 
 }

@@ -8,4 +8,13 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 object Example6 extends App {
 
+  val repository = new Repository
+
+  val city = for {
+    user <- OptionT(repository.getUserOption(13))
+    address <- OptionT(repository.getAddressOption(user))
+  } yield address.city
+
+  Thread.sleep(1000)
+  println(s"result is ${city}")
 }

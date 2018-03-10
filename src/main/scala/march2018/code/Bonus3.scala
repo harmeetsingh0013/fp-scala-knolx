@@ -28,5 +28,15 @@ object Bonus3 extends App {
     else Future.successful(Left(MyError("only james can be updated")))
   }
 
+  def updateUser(id: Int): Future[Either[MyError, User]] = {
+    (for {
+      user <- getUserOption(id)
+      _ <- checkCanBeUpdated(user)
+      updatedUser <- updateUserOnDb(user)
+    } yield updatedUser).value
+  }
+    val updatedUser = updateUser(1)
+    Thread.sleep(1000)
+    println(s" user is ${updatedUser}")
 }
 
